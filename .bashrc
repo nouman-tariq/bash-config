@@ -5,6 +5,12 @@
 # march19
 # alias cat='pygmentize -g'
 
+# sep22
+alias customShowProdServers='cat /home/debian/infra-control/config/production/hosts.ini'
+alias customShowStagServers='cat /home/debian/infra-control/config/staging/hosts.ini'
+alias customRunAll4Containers='cd /home/debian/smart-router && docker compose up -d mariadb-master && docker compose up -d mariadb && docker compose build sr && docker compose up -d --force-recreate sr && docker compose up -d phpmyadmin'
+alias customBuildLocalHA='cd /home/debian/haproxy_ipb && docker build -t ha:latest . && docker run -d --name ha ha:latest'
+
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
@@ -83,7 +89,7 @@ if [ -x /usr/bin/dircolors ]; then
     #alias dir='dir --color=auto'
     #alias vdir='vdir --color=auto'
 
-    #alias grep='grep --color=auto'
+    #alias grep='grep --color=auto' 
     #alias fgrep='fgrep --color=auto'
     #alias egrep='egrep --color=auto'
 fi
@@ -116,15 +122,13 @@ if ! shopt -oq posix; then
   fi
 fi
 
+export NODE_OPTIONS="--dns-result-order=ipv4first"
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 export PASSWORD_STORE_CLIP_TIME=300
 
 alias copy='xclip -selection clipboard'
-
-# Append to the history file, rather than overwriting it
-shopt -s histappend
 
 # Share history between terminal sessions
 export PROMPT_COMMAND="history -a; history -n; $PROMPT_COMMAND"
@@ -134,3 +138,6 @@ eval "$(ssh-agent -s)"
 # Facing some locale problem while running ansible commands
 export LC_ALL=C.UTF-8
 export LANG=C.UTF-8
+
+export BW_SESSION="$(cat ~/.bw_session 2>/dev/null)"
+export PATH="$HOME/.local/kitty.app/bin:$PATH"
