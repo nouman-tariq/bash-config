@@ -122,6 +122,8 @@ if ! shopt -oq posix; then
   fi
 fi
 
+export PATH="$HOME/.local/bin:$PATH"
+
 export NODE_OPTIONS="--dns-result-order=ipv4first"
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -141,3 +143,7 @@ export LANG=C.UTF-8
 
 export BW_SESSION="$(cat ~/.bw_session 2>/dev/null)"
 export PATH="$HOME/.local/kitty.app/bin:$PATH"
+
+# opencode
+export PATH=/home/nouman/.opencode/bin:$PATH
+export PATH="$HOME/.npm-global/bin:$PATH"
